@@ -176,7 +176,51 @@
 
 - (double)solveForYears
 {
-    return 103;
+    double couponPayment = [self.CouponRateTextField.text doubleValue]/100.0*[self.FaceValueTextField.text doubleValue];
+    
+    double leftBound = 0;
+    double rightBound = 150;
+    double midpoint = 75;
+    double margin = .0001;
+    double yearsCalculation = -1;
+    double yearsCalculationLeftBound = -1;
+    int maxNumberOfIterations = 100000;
+
+    
+    int n = 1;
+    while (n <= maxNumberOfIterations)
+    {
+        midpoint = (leftBound+rightBound)/2;
+        
+        yearsCalculation = couponPayment/([self.DiscountRateTextField.text doubleValue]/100.0)-
+                couponPayment/([self.DiscountRateTextField.text doubleValue]/100.0*
+                 pow(1+[self.DiscountRateTextField.text doubleValue]/100.0, midpoint))+
+                [self.FaceValueTextField.text doubleValue]/
+                 pow(1+[self.DiscountRateTextField.text doubleValue]/100.0, midpoint)-[self.PriceTextField.text doubleValue];
+        
+        yearsCalculationLeftBound = couponPayment/([self.DiscountRateTextField.text doubleValue]/100.0)-
+                couponPayment/([self.DiscountRateTextField.text doubleValue]/100.0*
+                pow(1+[self.DiscountRateTextField.text doubleValue]/100.0, leftBound))+
+                [self.FaceValueTextField.text doubleValue]/
+                pow(1+[self.DiscountRateTextField.text doubleValue]/100.0, leftBound)-[self.PriceTextField.text doubleValue];
+        
+        if ((yearsCalculation >= 0 && yearsCalculation < margin) || (yearsCalculation <= 0 && yearsCalculation > -1*margin))
+        {
+            return midpoint;
+        }
+        
+        if ((yearsCalculation < 0 && yearsCalculationLeftBound < 0) || (yearsCalculation > 0 && yearsCalculationLeftBound > 0))
+        {
+            leftBound = midpoint;
+        }
+        else
+        {
+            rightBound = midpoint;
+        }
+        n++;
+    }
+    
+    return -1;
 }
 
 - (double)solveForPrice
