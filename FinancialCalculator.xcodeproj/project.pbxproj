@@ -23,6 +23,7 @@
 		EE4CD7E6183DA991005340D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE4CD7C2183DA991005340D7 /* UIKit.framework */; };
 		EE4CD7EE183DA991005340D7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE4CD7EC183DA991005340D7 /* InfoPlist.strings */; };
 		EE4CD7F0183DA991005340D7 /* FinancialCalculatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4CD7EF183DA991005340D7 /* FinancialCalculatorTests.m */; };
+		EEC80857183EF5CC0059EBF0 /* ThirdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC80856183EF5CC0059EBF0 /* ThirdViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,8 @@
 		EE4CD7EB183DA991005340D7 /* FinancialCalculatorTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FinancialCalculatorTests-Info.plist"; sourceTree = "<group>"; };
 		EE4CD7ED183DA991005340D7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EE4CD7EF183DA991005340D7 /* FinancialCalculatorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FinancialCalculatorTests.m; sourceTree = "<group>"; };
+		EEC80855183EF5CC0059EBF0 /* ThirdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThirdViewController.h; sourceTree = "<group>"; };
+		EEC80856183EF5CC0059EBF0 /* ThirdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThirdViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,14 +122,16 @@
 			children = (
 				EE4CD7CD183DA991005340D7 /* AppDelegate.h */,
 				EE4CD7CE183DA991005340D7 /* AppDelegate.m */,
-				EE4CD7D0183DA991005340D7 /* Main_iPhone.storyboard */,
-				EE4CD7D3183DA991005340D7 /* Main_iPad.storyboard */,
 				EE4CD7D6183DA991005340D7 /* FirstViewController.h */,
 				EE4CD7D7183DA991005340D7 /* FirstViewController.m */,
+				EE4CD7DC183DA991005340D7 /* Images.xcassets */,
+				EE4CD7D3183DA991005340D7 /* Main_iPad.storyboard */,
+				EE4CD7D0183DA991005340D7 /* Main_iPhone.storyboard */,
 				EE4CD7D9183DA991005340D7 /* SecondViewController.h */,
 				EE4CD7DA183DA991005340D7 /* SecondViewController.m */,
-				EE4CD7DC183DA991005340D7 /* Images.xcassets */,
 				EE4CD7C5183DA991005340D7 /* Supporting Files */,
+				EEC80855183EF5CC0059EBF0 /* ThirdViewController.h */,
+				EEC80856183EF5CC0059EBF0 /* ThirdViewController.m */,
 			);
 			path = FinancialCalculator;
 			sourceTree = "<group>";
@@ -259,6 +264,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE4CD7DB183DA991005340D7 /* SecondViewController.m in Sources */,
+				EEC80857183EF5CC0059EBF0 /* ThirdViewController.m in Sources */,
 				EE4CD7CF183DA991005340D7 /* AppDelegate.m in Sources */,
 				EE4CD7D8183DA991005340D7 /* FirstViewController.m in Sources */,
 				EE4CD7CB183DA991005340D7 /* main.m in Sources */,
@@ -480,6 +486,7 @@
 				EE4CD7F5183DA991005340D7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EE4CD7F6183DA991005340D7 /* Build configuration list for PBXNativeTarget "FinancialCalculatorTests" */ = {
 			isa = XCConfigurationList;
@@ -488,6 +495,7 @@
 				EE4CD7F8183DA991005340D7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

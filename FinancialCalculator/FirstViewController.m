@@ -13,7 +13,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *FaceValueTextField;
 @property (weak, nonatomic) IBOutlet UITextField *DiscountRateTextField;
 @property (weak, nonatomic) IBOutlet UITextField *CouponRateTextField;
-@property (weak, nonatomic) IBOutlet UITextField *YearsTextField;
+@property (weak, nonatomic) IBOutlet UITextField *MaturityTextField;
 @property (weak, nonatomic) IBOutlet UITextField *PriceTextField;
 @property (weak, nonatomic) IBOutlet UITextField *ResultTextField;
 
@@ -22,7 +22,7 @@
 - (double)solveForFaceValue;
 - (double)solveForDiscountRate;
 - (double)solveForCouponRate;
-- (double)solveForYears;
+- (double)solveForMaturity;
 - (double)solveForPrice;
 
 @end
@@ -34,6 +34,7 @@
     [super viewDidLoad];
 	
     // Do any additional setup after loading the view.
+    self.ResultTextField.enabled = NO;
     
     /*
      Add a tap gesture recognizer to capture all tap events. This is primarily tap events when a
@@ -86,9 +87,9 @@
     {
         self.ResultTextField.text = [NSString stringWithFormat:@"%f %%",[self solveForCouponRate]];
     }
-    else if ([self.YearsTextField.text isEqualToString:@""])
+    else if ([self.MaturityTextField.text isEqualToString:@""])
     {
-        self.ResultTextField.text = [NSString stringWithFormat:@"%f",[self solveForYears]];
+        self.ResultTextField.text = [NSString stringWithFormat:@"%f",[self solveForMaturity]];
     }
     else if ([self.PriceTextField.text isEqualToString:@""])
     {
@@ -103,15 +104,19 @@
         [alert show];
     }
     
+    if (!([self.ResultTextField.text doubleValue] > -100))
+    {
+        self.ResultTextField.text = @"Error!";
+    }
 }
 
 - (double)solveForFaceValue
 {
     double discountedCouponPayments = (1.0/([self.DiscountRateTextField.text doubleValue]/100.0) -
                                        1.0/(([self.DiscountRateTextField.text doubleValue]/100.0)*
-        pow(1+[self.DiscountRateTextField.text doubleValue]/100.0,[self.YearsTextField.text doubleValue])));
+        pow(1+[self.DiscountRateTextField.text doubleValue]/100.0,[self.MaturityTextField.text doubleValue])));
     double maturityPaymentDiscountFactor = 1.0/pow(1.0+[self.DiscountRateTextField.text doubleValue]/100.0,
-                                               [self.YearsTextField.text doubleValue]);
+                                               [self.MaturityTextField.text doubleValue]);
     
     return [self.PriceTextField.text doubleValue]/(([self.CouponRateTextField.text doubleValue]/100.0)*
             discountedCouponPayments + maturityPaymentDiscountFactor);
@@ -134,13 +139,13 @@
     {
         midpoint = (leftBound+rightBound)/2;
         yieldCalculation = couponPayment/midpoint-
-                           couponPayment/(midpoint*pow(1+midpoint, [self.YearsTextField.text doubleValue]))+
-                           [self.FaceValueTextField.text doubleValue]/pow(1+midpoint, [self.YearsTextField.text doubleValue])-
+                           couponPayment/(midpoint*pow(1+midpoint, [self.MaturityTextField.text doubleValue]))+
+                           [self.FaceValueTextField.text doubleValue]/pow(1+midpoint, [self.MaturityTextField.text doubleValue])-
                            [self.PriceTextField.text doubleValue];
         
         yieldCalculationLeftBound = couponPayment/leftBound-
-                            couponPayment/(leftBound*pow(1+leftBound, [self.YearsTextField.text doubleValue]))+
-                            [self.FaceValueTextField.text doubleValue]/pow(1+leftBound, [self.YearsTextField.text doubleValue])-
+                            couponPayment/(leftBound*pow(1+leftBound, [self.MaturityTextField.text doubleValue]))+
+                            [self.FaceValueTextField.text doubleValue]/pow(1+leftBound, [self.MaturityTextField.text doubleValue])-
                             [self.PriceTextField.text doubleValue];
         
         if ((yieldCalculation >= 0 && yieldCalculation < margin) || (yieldCalculation <= 0 && yieldCalculation > -1*margin))
@@ -165,16 +170,16 @@
 - (double)solveForCouponRate
 {
     double maturityPayment = [self.FaceValueTextField.text doubleValue]/
-        (pow(1+[self.DiscountRateTextField.text doubleValue]/100.0,[self.YearsTextField.text doubleValue]));
+        (pow(1+[self.DiscountRateTextField.text doubleValue]/100.0,[self.MaturityTextField.text doubleValue]));
     double discountedCouponPayments = (1.0/([self.DiscountRateTextField.text doubleValue]/100.0) -
                                        1.0/(([self.DiscountRateTextField.text doubleValue]/100.0)*
-         pow(1+[self.DiscountRateTextField.text doubleValue]/100.0,[self.YearsTextField.text doubleValue])));
+         pow(1+[self.DiscountRateTextField.text doubleValue]/100.0,[self.MaturityTextField.text doubleValue])));
     
     return 100.0*(([self.PriceTextField.text doubleValue]-maturityPayment)/discountedCouponPayments)/
          [self.FaceValueTextField.text doubleValue];
 }
 
-- (double)solveForYears
+- (double)solveForMaturity
 {
     double couponPayment = [self.CouponRateTextField.text doubleValue]/100.0*[self.FaceValueTextField.text doubleValue];
     
@@ -227,10 +232,10 @@
 {
     double couponPayment = [self.CouponRateTextField.text doubleValue]/100.0*[self.FaceValueTextField.text doubleValue];
     double maturityPayment = [self.FaceValueTextField.text doubleValue]/
-        (pow(1+[self.DiscountRateTextField.text doubleValue]/100.0,[self.YearsTextField.text doubleValue]));
+        (pow(1+[self.DiscountRateTextField.text doubleValue]/100.0,[self.MaturityTextField.text doubleValue]));
     double discountedCouponPayments = (1.0/([self.DiscountRateTextField.text doubleValue]/100.0) -
                                        1.0/(([self.DiscountRateTextField.text doubleValue]/100.0)*
-         pow(1+[self.DiscountRateTextField.text doubleValue]/100.0,[self.YearsTextField.text doubleValue])));
+         pow(1+[self.DiscountRateTextField.text doubleValue]/100.0,[self.MaturityTextField.text doubleValue])));
     
     return couponPayment*discountedCouponPayments + maturityPayment;
 }
