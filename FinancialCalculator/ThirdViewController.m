@@ -98,7 +98,7 @@
         [alert show];
     }
     
-    if (!([self.ResultTextField.text doubleValue] > -100))
+    if ([self.ResultTextField.text doubleValue] < -100)
     {
         self.ResultTextField.text = @"Error!";
     }
@@ -107,23 +107,166 @@
 - (double)solveForFutureValue
 {
     double futureValue = -101;
+    NSArray *presentValueCashFlows = [self.PresentValueTextField.text componentsSeparatedByString:@","];
+    double discountRate = [self.DiscountRateTextField.text doubleValue]/100.0;
+    double maturity = [self.MaturityTextField.text doubleValue];
     
+    
+    if (presentValueCashFlows.count == 1)
+    {
+        futureValue = 0;
+        for (int i=1; i <= maturity; i++)
+        {
+            futureValue += [presentValueCashFlows[0] doubleValue]*pow(1+discountRate,i);
+        }
+    }
+    else if (presentValueCashFlows.count == maturity)
+    {
+        futureValue = 0;
+        for (int i=1; i <= presentValueCashFlows.count; i++)
+        {
+            futureValue += [presentValueCashFlows[i-1] doubleValue]*pow(1+discountRate, i);
+        }
+    }
+    else
+    {
+        // Display alert because they entered number of periods different from list of cash flows
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Input Entry Error"
+                               message:@"You entered a maturity that is inconsistent with the number"
+                               @" of present value cash flows."
+                               delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    }
     
     return futureValue;
 }
 
 - (double)solveForDiscountRate
 {
-    double discountRate = -101;
+    double maturity = [self.MaturityTextField.text doubleValue];
+    NSArray *cashFlows = [self.CashFlowTextField.text componentsSeparatedByString:@","];
     
+    double leftBound = -.5;
+    double rightBound = 1;
+    double midpoint = .25;
+    double margin = .00001;
+    double functionCalculation = -500;
+    double functionCalculationLeftBound = -500;
+    int maxNumberOfIterations = 1000;
     
-    return discountRate;
+    int n = 1;
+    while (n <= maxNumberOfIterations)
+    {
+        midpoint = (leftBound+rightBound)/2;
+        functionCalculation = 0;
+        functionCalculationLeftBound = 0;
+        
+        if (cashFlows.count == 1)
+        {
+            for (int i=1; i <= maturity; i++) {
+                functionCalculation += [cashFlows[0] doubleValue]/pow(1+midpoint,i);
+                functionCalculationLeftBound += [cashFlows[0] doubleValue]/pow(1+leftBound,i);
+            }
+        }
+        else if (cashFlows.count == maturity)
+        {
+            for (int i=1; i <= cashFlows.count; i++)
+            {
+                functionCalculation += [cashFlows[i-1] doubleValue]/pow(1+midpoint,i);
+                functionCalculationLeftBound += [cashFlows[i-1] doubleValue]/pow(1+leftBound,i);
+            }
+        }
+        else
+        {
+            // Display alert because they entered number of periods different from list of cash flows
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Input Entry Error"
+                                   message:@"You entered a maturity that is inconsistent with the number"
+                                   @" of future cash flows."
+                                   delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+        }
+        
+        functionCalculation -= self.PresentValueTextField.text.doubleValue;
+        functionCalculationLeftBound    -= self.PresentValueTextField.text.doubleValue;
+        
+        if ((functionCalculation >= 0 && functionCalculation < margin) || (functionCalculation <= 0 && functionCalculation > -1*margin))
+        {
+            return 100*midpoint;
+        }
+        
+        if ((functionCalculation < 0 && functionCalculationLeftBound < 0) || (functionCalculation > 0 && functionCalculationLeftBound > 0))
+        {
+            leftBound = midpoint;
+        }
+        else
+        {
+            rightBound = midpoint;
+        }
+        n++;
+    }
+    
+    return -101;
 }
 
 - (double)solveForMaturity
 {
-    double maturity = -101;
+    NSArray *cashFlows = [self.CashFlowTextField.text componentsSeparatedByString:@","];
+    double discountRate = self.DiscountRateTextField.text.doubleValue/100.0;
+    double maturity = -1;
     
+    double leftBound = 1;
+    double rightBound = 149;
+    double midpoint = 75;
+    double margin = .0001;
+    double functionCalculation = -1;
+    double functionCalculationLeftBound = -1;
+    int maxNumberOfIterations = 100000;
+    
+    
+    int n = 1;
+    while (n <= maxNumberOfIterations)
+    {
+        midpoint = round((leftBound+rightBound)/2);
+        functionCalculation = 0;
+        functionCalculationLeftBound = 0;
+        
+        if (cashFlows.count == 1)
+        {
+            for (int i=1; i <= midpoint; i++) {
+                functionCalculation += [cashFlows[0] doubleValue]/pow(1+discountRate,i);
+            }
+            
+            for (int j=1; j <= leftBound; j++)
+            {
+                functionCalculationLeftBound += [cashFlows[0] doubleValue]/pow(1+discountRate,j);
+            }
+        }
+        else
+        {
+            return cashFlows.count;
+        }
+        
+        functionCalculation -= self.PresentValueTextField.text.doubleValue;
+        functionCalculationLeftBound    -= self.PresentValueTextField.text.doubleValue;
+
+        if ((functionCalculation >= 0 && functionCalculation < margin) ||
+            (functionCalculation <= 0 && functionCalculation > -1*margin))
+        {
+            return midpoint;
+        }
+        
+        if ((functionCalculation < 0 && functionCalculationLeftBound < 0) ||
+            (functionCalculation > 0 && functionCalculationLeftBound > 0))
+        {
+            leftBound = midpoint;
+        }
+        else
+        {
+            rightBound = midpoint;
+        }
+        maturity = midpoint;
+        n++;
+    }
     
     return maturity;
 }
@@ -145,7 +288,6 @@
     else if (cashFlows.count == maturity)
     {
         presentValue = 0;
-        
         for (int i=1; i <= cashFlows.count; i++)
         {
             presentValue += [cashFlows[i-1] doubleValue]/pow(1+discountRate, i);
@@ -155,7 +297,8 @@
     {
         // Display alert because they entered number of periods different from list of cash flows
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Input Entry Error"
-                               message:@"You entered a maturity that is inconsistent with the number of cash flows."
+                               message:@"You entered a maturity that is inconsistent with the number"
+                               @" of future cash flows."
                                delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
     }
