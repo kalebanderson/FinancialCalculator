@@ -10,4 +10,10 @@
 
 @interface SecondViewController : UIViewController
 
+/**
+ recognizes a "background" tap, in this case a tap on the outside
+ of the keyboard.
+ */
+@property(strong, nonatomic) UITapGestureRecognizer *backgroundTapGestureRecognizer;
+
 @end

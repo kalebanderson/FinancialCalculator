@@ -75,19 +75,19 @@
 {
     if ([self.CashFlowTextField.text isEqualToString:@""])
     {
-        self.ResultTextField.text = [NSString stringWithFormat:@"$ %f",[self solveForFutureValue]];
+        self.ResultTextField.text = [NSString stringWithFormat:@"$ %9.2f",[self solveForFutureValue]];
     }
     else if ([self.DiscountRateTextField.text isEqualToString:@""])
     {
-        self.ResultTextField.text = [NSString stringWithFormat:@"%f %%",[self solveForDiscountRate]];
+        self.ResultTextField.text = [NSString stringWithFormat:@"%9.4f %%",[self solveForDiscountRate]];
     }
     else if ([self.MaturityTextField.text isEqualToString:@""])
     {
-        self.ResultTextField.text = [NSString stringWithFormat:@"%f",[self solveForMaturity]];
+        self.ResultTextField.text = [NSString stringWithFormat:@"%9.2f",[self solveForMaturity]];
     }
     else if ([self.PresentValueTextField.text isEqualToString:@""])
     {
-        self.ResultTextField.text = [NSString stringWithFormat:@"$ %f",[self solveForPresentValue]];
+        self.ResultTextField.text = [NSString stringWithFormat:@"$ %9.2f",[self solveForPresentValue]];
     }
     else
     {
@@ -189,12 +189,14 @@
         functionCalculation -= self.PresentValueTextField.text.doubleValue;
         functionCalculationLeftBound    -= self.PresentValueTextField.text.doubleValue;
         
-        if ((functionCalculation >= 0 && functionCalculation < margin) || (functionCalculation <= 0 && functionCalculation > -1*margin))
+        if ((functionCalculation >= 0 && functionCalculation < margin) ||
+            (functionCalculation <= 0 && functionCalculation > -1*margin))
         {
             return 100*midpoint;
         }
         
-        if ((functionCalculation < 0 && functionCalculationLeftBound < 0) || (functionCalculation > 0 && functionCalculationLeftBound > 0))
+        if ((functionCalculation < 0 && functionCalculationLeftBound < 0) ||
+            (functionCalculation > 0 && functionCalculationLeftBound > 0))
         {
             leftBound = midpoint;
         }
@@ -220,13 +222,13 @@
     double margin = .0001;
     double functionCalculation = -1;
     double functionCalculationLeftBound = -1;
-    int maxNumberOfIterations = 100000;
+    int maxNumberOfIterations = 1000;
     
     
     int n = 1;
     while (n <= maxNumberOfIterations)
     {
-        midpoint = round((leftBound+rightBound)/2);
+        midpoint = (leftBound+rightBound)/2;
         functionCalculation = 0;
         functionCalculationLeftBound = 0;
         

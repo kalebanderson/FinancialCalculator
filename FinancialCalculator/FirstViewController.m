@@ -77,23 +77,31 @@
 {
     if ([self.FaceValueTextField.text isEqualToString:@""])
     {
-        self.ResultTextField.text = [NSString stringWithFormat:@"$ %f",[self solveForFaceValue]];
+        self.ResultTextField.text = [NSString stringWithFormat:@"$ %9.2f",[self solveForFaceValue]];
     }
     else if ([self.DiscountRateTextField.text isEqualToString:@""])
     {
-        self.ResultTextField.text = [NSString stringWithFormat:@"%f %%",[self solveForDiscountRate]];
+        self.ResultTextField.text = [NSString stringWithFormat:@"%9.4f %%",[self solveForDiscountRate]];
     }
     else if ([self.CouponRateTextField.text isEqualToString:@""])
     {
-        self.ResultTextField.text = [NSString stringWithFormat:@"%f %%",[self solveForCouponRate]];
+        self.ResultTextField.text = [NSString stringWithFormat:@"%9.4f %%",[self solveForCouponRate]];
     }
     else if ([self.MaturityTextField.text isEqualToString:@""])
     {
-        self.ResultTextField.text = [NSString stringWithFormat:@"%f",[self solveForMaturity]];
+        double maturity = [self solveForMaturity];
+        if (maturity == -999)
+        {
+            self.ResultTextField.text = @"Indeterminant.";
+        }
+        else
+        {
+            self.ResultTextField.text = [NSString stringWithFormat:@"%9.2f",maturity];
+        }
     }
     else if ([self.PriceTextField.text isEqualToString:@""])
     {
-        self.ResultTextField.text = [NSString stringWithFormat:@"$ %f",[self solveForPrice]];
+        self.ResultTextField.text = [NSString stringWithFormat:@"$ %9.2f",[self solveForPrice]];
     }
     else
     {
@@ -181,15 +189,23 @@
 
 - (double)solveForMaturity
 {
-    double couponPayment = [self.CouponRateTextField.text doubleValue]/100.0*[self.FaceValueTextField.text doubleValue];
+    double discountRate = [self.DiscountRateTextField.text doubleValue]/100.0;
+    double faceValue = [self.FaceValueTextField.text doubleValue];
+    double price = [self.PriceTextField.text doubleValue];
+    double couponPayment = self.CouponRateTextField.text.doubleValue/100.0*faceValue;
     
-    double leftBound = 0;
-    double rightBound = 150;
+    if (discountRate == self.CouponRateTextField.text.doubleValue/100.0)
+    {
+        return -999;
+    }
+    
+    double leftBound = 1;
+    double rightBound = 149;
     double midpoint = 75;
     double margin = .0001;
     double yearsCalculation = -1;
     double yearsCalculationLeftBound = -1;
-    int maxNumberOfIterations = 100000;
+    int maxNumberOfIterations = 1000;
 
     
     int n = 1;
@@ -197,17 +213,13 @@
     {
         midpoint = (leftBound+rightBound)/2;
         
-        yearsCalculation = couponPayment/([self.DiscountRateTextField.text doubleValue]/100.0)-
-                couponPayment/([self.DiscountRateTextField.text doubleValue]/100.0*
-                 pow(1+[self.DiscountRateTextField.text doubleValue]/100.0, midpoint))+
-                [self.FaceValueTextField.text doubleValue]/
-                 pow(1+[self.DiscountRateTextField.text doubleValue]/100.0, midpoint)-[self.PriceTextField.text doubleValue];
+        yearsCalculation = couponPayment/discountRate-
+                couponPayment/(discountRate*pow(1+discountRate, midpoint))+
+                faceValue/pow(1+discountRate, midpoint)-price;
         
-        yearsCalculationLeftBound = couponPayment/([self.DiscountRateTextField.text doubleValue]/100.0)-
-                couponPayment/([self.DiscountRateTextField.text doubleValue]/100.0*
-                pow(1+[self.DiscountRateTextField.text doubleValue]/100.0, leftBound))+
-                [self.FaceValueTextField.text doubleValue]/
-                pow(1+[self.DiscountRateTextField.text doubleValue]/100.0, leftBound)-[self.PriceTextField.text doubleValue];
+        yearsCalculationLeftBound = couponPayment/discountRate-
+                couponPayment/(discountRate*pow(1+discountRate, leftBound))+
+                faceValue/pow(1+discountRate, leftBound)-price;
         
         if ((yearsCalculation >= 0 && yearsCalculation < margin) || (yearsCalculation <= 0 && yearsCalculation > -1*margin))
         {
@@ -225,7 +237,7 @@
         n++;
     }
     
-    return -1;
+    return -101;
 }
 
 - (double)solveForPrice
