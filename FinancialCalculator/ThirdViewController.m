@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *CashFlowTextField;
 @property (weak, nonatomic) IBOutlet UITextField *DiscountRateTextField;
 @property (weak, nonatomic) IBOutlet UITextField *MaturityTextField;
+@property (weak, nonatomic) IBOutlet UITextField *CompoundsTextField;
 @property (weak, nonatomic) IBOutlet UITextField *PresentValueTextField;
 @property (weak, nonatomic) IBOutlet UITextField *ResultTextField;
 
@@ -75,11 +76,11 @@
 {
     if ([self.CashFlowTextField.text isEqualToString:@""])
     {
-        self.ResultTextField.text = [NSString stringWithFormat:@"$ %9.2f",[self solveForFutureValue]];
+        self.ResultTextField.text = [NSString stringWithFormat:@"%9.2f",[self solveForFutureValue]];
     }
     else if ([self.DiscountRateTextField.text isEqualToString:@""])
     {
-        self.ResultTextField.text = [NSString stringWithFormat:@"%9.4f %%",[self solveForDiscountRate]];
+        self.ResultTextField.text = [NSString stringWithFormat:@"%9.4f",[self solveForDiscountRate]];
     }
     else if ([self.MaturityTextField.text isEqualToString:@""])
     {
@@ -87,13 +88,13 @@
     }
     else if ([self.PresentValueTextField.text isEqualToString:@""])
     {
-        self.ResultTextField.text = [NSString stringWithFormat:@"$ %9.2f",[self solveForPresentValue]];
+        self.ResultTextField.text = [NSString stringWithFormat:@"%9.2f",[self solveForPresentValue]];
     }
     else
     {
-        // Display alert because they entered text into all 4 fields!
+        // Display alert because they entered text into all fields!
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Input Entry Error"
-                              message:@"You entered values for all four fields. Leave one field empty!"
+                              message:@"You entered values for all  fields. Leave one field empty!"
                               delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
     }
@@ -108,24 +109,25 @@
 {
     double futureValue = -101;
     NSArray *presentValueCashFlows = [self.PresentValueTextField.text componentsSeparatedByString:@","];
-    double discountRate = [self.DiscountRateTextField.text doubleValue]/100.0;
-    double maturity = [self.MaturityTextField.text doubleValue];
+    double discountRate = self.DiscountRateTextField.text.doubleValue/100.0;
+    double maturity = self.MaturityTextField.text.doubleValue;
+    double compounds = self.CompoundsTextField.text.doubleValue;
     
     
     if (presentValueCashFlows.count == 1)
     {
         futureValue = 0;
-        for (int i=1; i <= maturity; i++)
+        for (int i=1; i <= maturity*compounds; i++)
         {
-            futureValue += [presentValueCashFlows[0] doubleValue]*pow(1+discountRate,i);
+            futureValue += [presentValueCashFlows[0] doubleValue]*pow(1+discountRate/compounds,i);
         }
     }
-    else if (presentValueCashFlows.count == maturity)
+    else if (presentValueCashFlows.count == maturity*compounds)
     {
         futureValue = 0;
-        for (int i=1; i <= presentValueCashFlows.count; i++)
+        for (int i=1; i <= maturity*compounds; i++)
         {
-            futureValue += [presentValueCashFlows[i-1] doubleValue]*pow(1+discountRate, i);
+            futureValue += [presentValueCashFlows[i-1] doubleValue]*pow(1+discountRate/compounds, i);
         }
     }
     else
@@ -143,7 +145,8 @@
 
 - (double)solveForDiscountRate
 {
-    double maturity = [self.MaturityTextField.text doubleValue];
+    double maturity = self.MaturityTextField.text.doubleValue;
+    double compounds = self.CompoundsTextField.text.doubleValue;
     NSArray *cashFlows = [self.CashFlowTextField.text componentsSeparatedByString:@","];
     
     double leftBound = -.5;
@@ -163,17 +166,17 @@
         
         if (cashFlows.count == 1)
         {
-            for (int i=1; i <= maturity; i++) {
-                functionCalculation += [cashFlows[0] doubleValue]/pow(1+midpoint,i);
-                functionCalculationLeftBound += [cashFlows[0] doubleValue]/pow(1+leftBound,i);
+            for (int i=1; i <= maturity*compounds; i++) {
+                functionCalculation += [cashFlows[0] doubleValue]/pow(1+midpoint/compounds,i);
+                functionCalculationLeftBound += [cashFlows[0] doubleValue]/pow(1+leftBound/compounds,i);
             }
         }
-        else if (cashFlows.count == maturity)
+        else if (cashFlows.count == maturity*compounds)
         {
-            for (int i=1; i <= cashFlows.count; i++)
+            for (int i=1; i <= maturity*compounds; i++)
             {
-                functionCalculation += [cashFlows[i-1] doubleValue]/pow(1+midpoint,i);
-                functionCalculationLeftBound += [cashFlows[i-1] doubleValue]/pow(1+leftBound,i);
+                functionCalculation += [cashFlows[i-1] doubleValue]/pow(1+midpoint/compounds,i);
+                functionCalculationLeftBound += [cashFlows[i-1] doubleValue]/pow(1+leftBound/compounds,i);
             }
         }
         else
@@ -214,6 +217,7 @@
 {
     NSArray *cashFlows = [self.CashFlowTextField.text componentsSeparatedByString:@","];
     double discountRate = self.DiscountRateTextField.text.doubleValue/100.0;
+    double compounds = self.CompoundsTextField.text.doubleValue;
     double maturity = -1;
     
     double leftBound = 1;
@@ -234,13 +238,13 @@
         
         if (cashFlows.count == 1)
         {
-            for (int i=1; i <= midpoint; i++) {
-                functionCalculation += [cashFlows[0] doubleValue]/pow(1+discountRate,i);
+            for (int i=1; i <= midpoint*compounds; i++) {
+                functionCalculation += [cashFlows[0] doubleValue]/pow(1+discountRate/compounds,i);
             }
             
-            for (int j=1; j <= leftBound; j++)
+            for (int j=1; j <= leftBound*compounds; j++)
             {
-                functionCalculationLeftBound += [cashFlows[0] doubleValue]/pow(1+discountRate,j);
+                functionCalculationLeftBound += [cashFlows[0] doubleValue]/pow(1+discountRate/compounds,j);
             }
         }
         else
@@ -277,22 +281,23 @@
 {
     double presentValue = -101;
     NSArray *cashFlows = [self.CashFlowTextField.text componentsSeparatedByString:@","];
-    double discountRate = [self.DiscountRateTextField.text doubleValue]/100.0;
-    double maturity = [self.MaturityTextField.text doubleValue];
+    double discountRate = self.DiscountRateTextField.text.doubleValue/100.0;
+    double maturity = self.MaturityTextField.text.doubleValue;
+    double compounds = self.CompoundsTextField.text.doubleValue;
     
     if (cashFlows.count == 1)
     {
         presentValue = 0;
-        for (int i=1; i <= maturity; i++) {
-            presentValue += [cashFlows[0] doubleValue]/pow(1+discountRate,i);
+        for (int i=1; i <= maturity*compounds; i++) {
+            presentValue += [cashFlows[0] doubleValue]/pow(1+discountRate/compounds,i);
         }
     }
-    else if (cashFlows.count == maturity)
+    else if (cashFlows.count == maturity*compounds)
     {
         presentValue = 0;
-        for (int i=1; i <= cashFlows.count; i++)
+        for (int i=1; i <= maturity*compounds; i++)
         {
-            presentValue += [cashFlows[i-1] doubleValue]/pow(1+discountRate, i);
+            presentValue += [cashFlows[i-1] doubleValue]/pow(1+discountRate/compounds, i);
         }
     }
     else

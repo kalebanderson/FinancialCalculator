@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *DiscountRateTextField;
 @property (weak, nonatomic) IBOutlet UITextField *CouponRateTextField;
 @property (weak, nonatomic) IBOutlet UITextField *MaturityTextField;
+@property (weak, nonatomic) IBOutlet UITextField *CompoundsTextField;
 @property (weak, nonatomic) IBOutlet UITextField *PriceTextField;
 @property (weak, nonatomic) IBOutlet UITextField *ResultTextField;
 
@@ -77,15 +78,15 @@
 {
     if ([self.FaceValueTextField.text isEqualToString:@""])
     {
-        self.ResultTextField.text = [NSString stringWithFormat:@"$ %9.2f",[self solveForFaceValue]];
+        self.ResultTextField.text = [NSString stringWithFormat:@"%9.2f",[self solveForFaceValue]];
     }
     else if ([self.DiscountRateTextField.text isEqualToString:@""])
     {
-        self.ResultTextField.text = [NSString stringWithFormat:@"%9.4f %%",[self solveForDiscountRate]];
+        self.ResultTextField.text = [NSString stringWithFormat:@"%9.4f",[self solveForDiscountRate]];
     }
     else if ([self.CouponRateTextField.text isEqualToString:@""])
     {
-        self.ResultTextField.text = [NSString stringWithFormat:@"%9.4f %%",[self solveForCouponRate]];
+        self.ResultTextField.text = [NSString stringWithFormat:@"%9.4f",[self solveForCouponRate]];
     }
     else if ([self.MaturityTextField.text isEqualToString:@""])
     {
@@ -101,13 +102,13 @@
     }
     else if ([self.PriceTextField.text isEqualToString:@""])
     {
-        self.ResultTextField.text = [NSString stringWithFormat:@"$ %9.2f",[self solveForPrice]];
+        self.ResultTextField.text = [NSString stringWithFormat:@"%9.2f",[self solveForPrice]];
     }
     else
     {
-        // Display alert because they entered text into all 5 fields!
+        // Display alert because they entered text into all fields!
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Input Entry Error"
-                               message:@"You entered values for all five fields. Leave one field empty!"
+                               message:@"You entered values for all fields. Leave one field empty!"
                                delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
     }
@@ -120,19 +121,28 @@
 
 - (double)solveForFaceValue
 {
-    double discountedCouponPayments = (1.0/([self.DiscountRateTextField.text doubleValue]/100.0) -
-                                       1.0/(([self.DiscountRateTextField.text doubleValue]/100.0)*
-        pow(1+[self.DiscountRateTextField.text doubleValue]/100.0,[self.MaturityTextField.text doubleValue])));
-    double maturityPaymentDiscountFactor = 1.0/pow(1.0+[self.DiscountRateTextField.text doubleValue]/100.0,
-                                               [self.MaturityTextField.text doubleValue]);
+    double compounds = self.CompoundsTextField.text.doubleValue;
+    double discountRate = self.DiscountRateTextField.text.doubleValue/100.0;
+    double maturity = self.MaturityTextField.text.doubleValue;
+    double couponRate = self.CouponRateTextField.text.doubleValue/100.0;
+    double price = self.PriceTextField.text.doubleValue;
     
-    return [self.PriceTextField.text doubleValue]/(([self.CouponRateTextField.text doubleValue]/100.0)*
-            discountedCouponPayments + maturityPaymentDiscountFactor);
+    double discountedCouponPayments = (1.0/(discountRate/compounds) -
+                                       1.0/(discountRate/compounds*pow(1+discountRate/compounds, maturity*compounds)));
+    double maturityPaymentDiscountFactor = 1.0/pow(1.0+discountRate/compounds, maturity*compounds);
+    
+    return price/(couponRate*discountedCouponPayments + maturityPaymentDiscountFactor);
 }
 
 - (double)solveForDiscountRate
 {
-    double couponPayment = [self.CouponRateTextField.text doubleValue]/100.0*[self.FaceValueTextField.text doubleValue];
+    double compounds = self.CompoundsTextField.text.doubleValue;
+    double maturity = self.MaturityTextField.text.doubleValue;
+    double couponRate = self.CouponRateTextField.text.doubleValue/100.0;
+    double price = self.PriceTextField.text.doubleValue;
+    double faceValue = self.FaceValueTextField.text.doubleValue;
+    
+    double couponPayment = couponRate*faceValue;
     
     double leftBound = -.5;
     double rightBound = 1;
@@ -146,15 +156,13 @@
     while (n <= maxNumberOfIterations)
     {
         midpoint = (leftBound+rightBound)/2;
-        yieldCalculation = couponPayment/midpoint-
-                           couponPayment/(midpoint*pow(1+midpoint, [self.MaturityTextField.text doubleValue]))+
-                           [self.FaceValueTextField.text doubleValue]/pow(1+midpoint, [self.MaturityTextField.text doubleValue])-
-                           [self.PriceTextField.text doubleValue];
+        yieldCalculation = couponPayment/(midpoint/compounds)-
+                           couponPayment/(midpoint/compounds*pow(1+midpoint/compounds, maturity*compounds))+
+                           faceValue/pow(1+midpoint/compounds, maturity*compounds) - price;
         
-        yieldCalculationLeftBound = couponPayment/leftBound-
-                            couponPayment/(leftBound*pow(1+leftBound, [self.MaturityTextField.text doubleValue]))+
-                            [self.FaceValueTextField.text doubleValue]/pow(1+leftBound, [self.MaturityTextField.text doubleValue])-
-                            [self.PriceTextField.text doubleValue];
+        yieldCalculationLeftBound = couponPayment/(leftBound/compounds)-
+                                    couponPayment/(leftBound/compounds*pow(1+leftBound/compounds, maturity*compounds))+
+                                    faceValue/pow(1+leftBound/compounds, maturity*compounds) - price;
         
         if ((yieldCalculation >= 0 && yieldCalculation < margin) || (yieldCalculation <= 0 && yieldCalculation > -1*margin))
         {
@@ -177,24 +185,30 @@
 
 - (double)solveForCouponRate
 {
-    double maturityPayment = [self.FaceValueTextField.text doubleValue]/
-        (pow(1+[self.DiscountRateTextField.text doubleValue]/100.0,[self.MaturityTextField.text doubleValue]));
-    double discountedCouponPayments = (1.0/([self.DiscountRateTextField.text doubleValue]/100.0) -
-                                       1.0/(([self.DiscountRateTextField.text doubleValue]/100.0)*
-         pow(1+[self.DiscountRateTextField.text doubleValue]/100.0,[self.MaturityTextField.text doubleValue])));
+    double compounds = self.CompoundsTextField.text.doubleValue;
+    double maturity = self.MaturityTextField.text.doubleValue;
+    double discountRate = self.DiscountRateTextField.text.doubleValue/100.0;
+    double price = self.PriceTextField.text.doubleValue;
+    double faceValue = self.FaceValueTextField.text.doubleValue;
     
-    return 100.0*(([self.PriceTextField.text doubleValue]-maturityPayment)/discountedCouponPayments)/
-         [self.FaceValueTextField.text doubleValue];
+    double maturityPayment = faceValue/(pow(1+discountRate/compounds,maturity*compounds));
+    double discountedCouponPayments = (1.0/(discountRate/compounds) -
+                                       1.0/(discountRate/compounds*pow(1+discountRate/compounds, maturity*compounds)));
+    
+    return 100.0*((price-maturityPayment)/discountedCouponPayments)/faceValue;
 }
 
 - (double)solveForMaturity
 {
-    double discountRate = [self.DiscountRateTextField.text doubleValue]/100.0;
-    double faceValue = [self.FaceValueTextField.text doubleValue];
-    double price = [self.PriceTextField.text doubleValue];
-    double couponPayment = self.CouponRateTextField.text.doubleValue/100.0*faceValue;
+    double compounds = self.CompoundsTextField.text.doubleValue;
+    double discountRate = self.DiscountRateTextField.text.doubleValue/100.0;
+    double couponRate = self.CouponRateTextField.text.doubleValue/100.0;
+    double price = self.PriceTextField.text.doubleValue;
+    double faceValue = self.FaceValueTextField.text.doubleValue;
     
-    if (discountRate == self.CouponRateTextField.text.doubleValue/100.0)
+    double couponPayment = couponRate*faceValue;
+    
+    if (discountRate == couponRate)
     {
         return -999;
     }
@@ -213,13 +227,13 @@
     {
         midpoint = (leftBound+rightBound)/2;
         
-        yearsCalculation = couponPayment/discountRate-
-                couponPayment/(discountRate*pow(1+discountRate, midpoint))+
-                faceValue/pow(1+discountRate, midpoint)-price;
+        yearsCalculation = couponPayment/(discountRate/compounds)-
+                couponPayment/(discountRate/compounds*pow(1+discountRate/compounds, midpoint*compounds))+
+                faceValue/pow(1+discountRate/compounds, midpoint*compounds)-price;
         
-        yearsCalculationLeftBound = couponPayment/discountRate-
-                couponPayment/(discountRate*pow(1+discountRate, leftBound))+
-                faceValue/pow(1+discountRate, leftBound)-price;
+        yearsCalculationLeftBound = couponPayment/(discountRate/compounds)-
+                couponPayment/(discountRate/compounds*pow(1+discountRate/compounds, leftBound*compounds))+
+                faceValue/pow(1+discountRate/compounds, leftBound*compounds)-price;
         
         if ((yearsCalculation >= 0 && yearsCalculation < margin) || (yearsCalculation <= 0 && yearsCalculation > -1*margin))
         {
@@ -242,12 +256,16 @@
 
 - (double)solveForPrice
 {
-    double couponPayment = [self.CouponRateTextField.text doubleValue]/100.0*[self.FaceValueTextField.text doubleValue];
-    double maturityPayment = [self.FaceValueTextField.text doubleValue]/
-        (pow(1+[self.DiscountRateTextField.text doubleValue]/100.0,[self.MaturityTextField.text doubleValue]));
-    double discountedCouponPayments = (1.0/([self.DiscountRateTextField.text doubleValue]/100.0) -
-                                       1.0/(([self.DiscountRateTextField.text doubleValue]/100.0)*
-         pow(1+[self.DiscountRateTextField.text doubleValue]/100.0,[self.MaturityTextField.text doubleValue])));
+    double compounds = self.CompoundsTextField.text.doubleValue;
+    double maturity = self.MaturityTextField.text.doubleValue;
+    double discountRate = self.DiscountRateTextField.text.doubleValue/100.0;
+    double faceValue = self.FaceValueTextField.text.doubleValue;
+    double couponRate = self.CouponRateTextField.text.doubleValue/100.0;
+    
+    double couponPayment = couponRate*faceValue;
+    double maturityPayment = faceValue/(pow(1+discountRate/compounds,maturity*compounds));
+    double discountedCouponPayments = (1.0/(discountRate/compounds) - 1.0/(discountRate/compounds*
+                                       pow(1+discountRate/compounds, maturity*compounds)));
     
     return couponPayment*discountedCouponPayments + maturityPayment;
 }

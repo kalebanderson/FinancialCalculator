@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *CashFlowTextField;
 @property (weak, nonatomic) IBOutlet UITextField *InterestRateTextField;
 @property (weak, nonatomic) IBOutlet UITextField *MaturityTextField;
+@property (weak, nonatomic) IBOutlet UITextField *CompoundsTextField;
 @property (weak, nonatomic) IBOutlet UITextField *ResultTextField;
 
 - (IBAction)SubmitAnnuityInfo:(id)sender;
@@ -75,11 +76,11 @@
 {
     if ([self.CashFlowTextField.text isEqualToString:@""])
     {
-        self.ResultTextField.text = [NSString stringWithFormat:@"$ %9.2f",[self solveForCashFlow]];
+        self.ResultTextField.text = [NSString stringWithFormat:@"%9.2f",[self solveForCashFlow]];
     }
     else if ([self.InterestRateTextField.text isEqualToString:@""])
     {
-        self.ResultTextField.text = [NSString stringWithFormat:@"%9.4f %%",[self solveForInterestRate]];
+        self.ResultTextField.text = [NSString stringWithFormat:@"%9.4f",[self solveForInterestRate]];
     }
     else if ([self.MaturityTextField.text isEqualToString:@""])
     {
@@ -87,11 +88,11 @@
     }
     else if ([self.PVofAnnuityTextField.text isEqualToString:@""])
     {
-        self.ResultTextField.text = [NSString stringWithFormat:@"$ %9.2f",[self solveForPV]];
+        self.ResultTextField.text = [NSString stringWithFormat:@"%9.2f",[self solveForPV]];
     }
     else
     {
-        // Display alert because they entered text into all 4 fields!
+        // Display alert because they entered text into all fields!
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Input Entry Error"
                               message:@"You entered values for all four fields. Leave one field empty!"
                               delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -110,8 +111,10 @@
     double PV = self.PVofAnnuityTextField.text.doubleValue;
     double maturity = self.MaturityTextField.text.doubleValue;
     double interestRate = self.InterestRateTextField.text.doubleValue/100.0;
+    double compounds = self.CompoundsTextField.text.doubleValue;
     
-    cashFlow = PV*interestRate*pow(1+interestRate, maturity)/(pow(1+interestRate, maturity)-1);
+    cashFlow = (PV*(interestRate/compounds)*pow(1+interestRate/compounds, maturity*compounds))/
+                (pow(1+interestRate/compounds, maturity*compounds)-1);
     
     return cashFlow;
 }
@@ -121,6 +124,7 @@
     double PV = self.PVofAnnuityTextField.text.doubleValue;
     double maturity = self.MaturityTextField.text.doubleValue;
     double cashFlow = self.CashFlowTextField.text.doubleValue;
+    double compounds = self.CompoundsTextField.text.doubleValue;
     
     double leftBound = -.5;
     double rightBound = 1;
@@ -136,8 +140,8 @@
     {
         midpoint = (leftBound+rightBound)/2;
         
-        functionCalculation = cashFlow*(1-pow(1+midpoint, -1*maturity))/midpoint - PV;
-        functionCalculationLeftBound = cashFlow*(1-pow(1+leftBound, -1*maturity))/leftBound - PV;
+        functionCalculation = cashFlow*compounds*(1-pow(1+midpoint/compounds, -1*maturity*compounds))/midpoint - PV;
+        functionCalculationLeftBound = cashFlow*compounds*(1-pow(1+leftBound/compounds, -1*maturity*compounds))/leftBound - PV;
         
         if ((functionCalculation >= 0 && functionCalculation < margin) ||
             (functionCalculation <= 0 && functionCalculation > -1*margin))
@@ -165,6 +169,7 @@
     double cashFlow = self.CashFlowTextField.text.doubleValue;
     double PV = self.PVofAnnuityTextField.text.doubleValue;
     double interestRate = self.InterestRateTextField.text.doubleValue/100.0;
+    double compounds = self.CompoundsTextField.text.doubleValue;
     
     double leftBound = 1;
     double rightBound = 149;
@@ -180,8 +185,8 @@
     {
         midpoint = (leftBound+rightBound)/2;
         
-        functionCalculation = cashFlow*(1-pow(1+interestRate, -1*midpoint))/interestRate - PV;
-        functionCalculationLeftBound = cashFlow*(1-pow(1+interestRate, -1*leftBound))/interestRate - PV;
+        functionCalculation = cashFlow*compounds*(1-pow(1+interestRate/compounds, -1*midpoint*compounds))/interestRate - PV;
+        functionCalculationLeftBound = cashFlow*compounds*(1-pow(1+interestRate/compounds, -1*leftBound*compounds))/interestRate - PV;
         
         if ((functionCalculation >= 0 && functionCalculation < margin) ||
             (functionCalculation <= 0 && functionCalculation > -1*margin))
@@ -210,8 +215,9 @@
     double cashFlow = self.CashFlowTextField.text.doubleValue;
     double maturity = self.MaturityTextField.text.doubleValue;
     double interestRate = self.InterestRateTextField.text.doubleValue/100.0;
+    double compounds = self.CompoundsTextField.text.doubleValue;
     
-    PV = cashFlow*(1-pow(1+interestRate, -1*maturity))/interestRate;
+    PV = cashFlow*compounds*(1-pow(1+interestRate/compounds, -1*maturity*compounds))/interestRate;
     
     return PV;
 }
