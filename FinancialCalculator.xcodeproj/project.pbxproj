@@ -25,6 +25,7 @@
 		EE4CD7F0183DA991005340D7 /* FinancialCalculatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4CD7EF183DA991005340D7 /* FinancialCalculatorTests.m */; };
 		EEC80857183EF5CC0059EBF0 /* ThirdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC80856183EF5CC0059EBF0 /* ThirdViewController.m */; };
 		EEEF57A11856B91C000AEE19 /* FourthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEEF57A01856B91C000AEE19 /* FourthViewController.m */; };
+		EEEF57A71856C7EF000AEE19 /* VcOutputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEEF57A61856C7EF000AEE19 /* VcOutputViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,8 @@
 		EEC80856183EF5CC0059EBF0 /* ThirdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThirdViewController.m; sourceTree = "<group>"; };
 		EEEF579F1856B91C000AEE19 /* FourthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FourthViewController.h; sourceTree = "<group>"; };
 		EEEF57A01856B91C000AEE19 /* FourthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FourthViewController.m; sourceTree = "<group>"; };
+		EEEF57A51856C7EF000AEE19 /* VcOutputViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VcOutputViewController.h; sourceTree = "<group>"; };
+		EEEF57A61856C7EF000AEE19 /* VcOutputViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VcOutputViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +140,8 @@
 				EEC80856183EF5CC0059EBF0 /* ThirdViewController.m */,
 				EEEF579F1856B91C000AEE19 /* FourthViewController.h */,
 				EEEF57A01856B91C000AEE19 /* FourthViewController.m */,
+				EEEF57A51856C7EF000AEE19 /* VcOutputViewController.h */,
+				EEEF57A61856C7EF000AEE19 /* VcOutputViewController.m */,
 			);
 			path = FinancialCalculator;
 			sourceTree = "<group>";
@@ -269,6 +274,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EEEF57A11856B91C000AEE19 /* FourthViewController.m in Sources */,
+				EEEF57A71856C7EF000AEE19 /* VcOutputViewController.m in Sources */,
 				EE4CD7DB183DA991005340D7 /* SecondViewController.m in Sources */,
 				EEC80857183EF5CC0059EBF0 /* ThirdViewController.m in Sources */,
 				EE4CD7CF183DA991005340D7 /* AppDelegate.m in Sources */,

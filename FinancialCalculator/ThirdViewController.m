@@ -285,19 +285,12 @@
     double maturity = self.MaturityTextField.text.doubleValue;
     double compounds = self.CompoundsTextField.text.doubleValue;
     
-    if (cashFlows.count == 1)
+if (cashFlows.count == maturity*compounds+1)
     {
         presentValue = 0;
-        for (int i=1; i <= maturity*compounds; i++) {
-            presentValue += [cashFlows[0] doubleValue]/pow(1+discountRate/compounds,i);
-        }
-    }
-    else if (cashFlows.count == maturity*compounds)
-    {
-        presentValue = 0;
-        for (int i=1; i <= maturity*compounds; i++)
+        for (int i=0; i <= maturity*compounds; i++)
         {
-            presentValue += [cashFlows[i-1] doubleValue]/pow(1+discountRate/compounds, i);
+            presentValue += [cashFlows[i] doubleValue]/pow(1+discountRate/compounds, i);
         }
     }
     else
