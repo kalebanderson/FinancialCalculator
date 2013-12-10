@@ -24,6 +24,7 @@
 		EE4CD7EE183DA991005340D7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE4CD7EC183DA991005340D7 /* InfoPlist.strings */; };
 		EE4CD7F0183DA991005340D7 /* FinancialCalculatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4CD7EF183DA991005340D7 /* FinancialCalculatorTests.m */; };
 		EEC80857183EF5CC0059EBF0 /* ThirdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC80856183EF5CC0059EBF0 /* ThirdViewController.m */; };
+		EEEF57A11856B91C000AEE19 /* FourthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEEF57A01856B91C000AEE19 /* FourthViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,8 @@
 		EE4CD7EF183DA991005340D7 /* FinancialCalculatorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FinancialCalculatorTests.m; sourceTree = "<group>"; };
 		EEC80855183EF5CC0059EBF0 /* ThirdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThirdViewController.h; sourceTree = "<group>"; };
 		EEC80856183EF5CC0059EBF0 /* ThirdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThirdViewController.m; sourceTree = "<group>"; };
+		EEEF579F1856B91C000AEE19 /* FourthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FourthViewController.h; sourceTree = "<group>"; };
+		EEEF57A01856B91C000AEE19 /* FourthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FourthViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +135,8 @@
 				EE4CD7C5183DA991005340D7 /* Supporting Files */,
 				EEC80855183EF5CC0059EBF0 /* ThirdViewController.h */,
 				EEC80856183EF5CC0059EBF0 /* ThirdViewController.m */,
+				EEEF579F1856B91C000AEE19 /* FourthViewController.h */,
+				EEEF57A01856B91C000AEE19 /* FourthViewController.m */,
 			);
 			path = FinancialCalculator;
 			sourceTree = "<group>";
@@ -263,6 +268,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEEF57A11856B91C000AEE19 /* FourthViewController.m in Sources */,
 				EE4CD7DB183DA991005340D7 /* SecondViewController.m in Sources */,
 				EEC80857183EF5CC0059EBF0 /* ThirdViewController.m in Sources */,
 				EE4CD7CF183DA991005340D7 /* AppDelegate.m in Sources */,
