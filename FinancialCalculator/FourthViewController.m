@@ -7,6 +7,7 @@
 //
 
 #import "FourthViewController.h"
+#import "VcOutputViewController.h"
 
 @interface FourthViewController ()
 
@@ -15,6 +16,16 @@
 @end
 
 @implementation FourthViewController
+{
+    NSArray *years;
+    NSArray *investments;
+    NSArray *roi;
+    NSMutableArray *newShares;
+    NSMutableArray *totalShares;
+    NSMutableArray *sharePrices;
+    NSMutableArray *equityFractions;
+    double numberOfRounds;
+}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -29,6 +40,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    newShares = [[NSMutableArray alloc] init];
+    totalShares = [[NSMutableArray alloc] init];
+    sharePrices = [[NSMutableArray alloc] init];
+    equityFractions = [[NSMutableArray alloc] init];
     
     UIEdgeInsets inset = UIEdgeInsetsMake(18, 0, 49, 0);
     self.tableView.contentInset = inset;
@@ -72,15 +88,76 @@
 
 - (IBAction)didSubmitVcInput:(id)sender
 {
-    [self calculateVcOutput];
+
     
-    [self performSegueWithIdentifier:@"segueToVcOutput" sender:self];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    [self setupInputArrays];
+    numberOfRounds = [self determineNumberOfRounds];
+    
+    if (numberOfRounds > 0)
+    {
+        [self calculateVcOutput];
+        //[self performSegueWithIdentifier:@"segueToVcOutput" sender:self];
+    }
+    else
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Input Entry Error"
+                              message:@"You must enter at least one round of investing!"
+                              delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    }
+    
+    // Before segue, give VcOutputViewController output data.
+    ((VcOutputViewController *)segue.destinationViewController).changeInShares = newShares;
+    ((VcOutputViewController *)segue.destinationViewController).totalShares = totalShares;
+    ((VcOutputViewController *)segue.destinationViewController).sharePrices = sharePrices;
+    ((VcOutputViewController *)segue.destinationViewController).equityFractions = equityFractions;
+}
+
+- (void)setupInputArrays
+{
+    years = @[_roundOneYears.text, _roundTwoYears.text, _roundThreeYears.text,
+                    _roundFourYears.text, _roundFiveYears.text];
+    investments = @[_roundOneInvestment.text, _roundTwoInvestment.text, _roundThreeInvestment.text,
+                    _roundFourInvestment.text, _roundFiveInvestment.text];
+    roi = @[_roundOneRoi.text, _roundTwoRoi.text, _roundThreeRoi.text,
+                    _roundFourRoi.text, _roundFiveRoi.text];
+}
+
+- (int)determineNumberOfRounds
+{
+    int temp = 0;
+    
+    for (int i=0; i<5; i++)
+    {
+        if ([years[i] doubleValue] > 0 && [investments[i] doubleValue] > 0 && [roi[i] doubleValue] > 0)
+        {
+            temp++;
+        }
+    }
+    return temp;
 }
 
 - (void)calculateVcOutput
 {
-    
-    
+    for (int i=0; i<numberOfRounds; i++)
+    {
+        double equity = [_earningsExit.text doubleValue]*[_peExit.text doubleValue];
+        double vcEquityPercent = [investments[i] doubleValue]*pow(1+[roi[i] doubleValue]/100, [years[i] doubleValue])/equity;
+        int newShrs = round(vcEquityPercent*[_numberOfShares.text doubleValue]/(1-vcEquityPercent));
+        int totShares = round([_numberOfShares.text doubleValue] + newShrs);
+        double sharePrc = equity/totShares;
+        
+        NSString *equityFraction = [NSString stringWithFormat:@"%f / %f", vcEquityPercent*equity, equity];
+        
+        [newShares addObject:[NSNumber numberWithInt:newShrs]];
+        [totalShares addObject:[NSNumber numberWithInt:totShares]];
+        [sharePrices addObject:[NSNumber numberWithDouble:sharePrc]];
+        [equityFractions addObject:equityFraction];
+    }
 }
 
 @end

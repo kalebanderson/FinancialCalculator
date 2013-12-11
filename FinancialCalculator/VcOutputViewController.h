@@ -38,4 +38,14 @@
 @property (weak, nonatomic) IBOutlet UILabel *fiveSharePrice;
 @property (weak, nonatomic) IBOutlet UILabel *fiveEquityFraction;
 
+
+// Number of valid investment rounds
+@property (nonatomic) int numberOfRounds;
+
+// Output data.
+@property (nonatomic) NSMutableArray *changeInShares;
+@property (nonatomic) NSMutableArray *totalShares;
+@property (nonatomic) NSMutableArray *sharePrices;
+@property (nonatomic) NSMutableArray *equityFractions;
+
 @end

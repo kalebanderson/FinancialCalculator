@@ -16,6 +16,7 @@
  */
 @property(strong, nonatomic) UITapGestureRecognizer *backgroundTapGestureRecognizer;
 
+// Input fields
 @property (weak, nonatomic) IBOutlet UITextField *numberOfShares;
 @property (weak, nonatomic) IBOutlet UITextField *initialYears;
 @property (weak, nonatomic) IBOutlet UITextField *peExit;
