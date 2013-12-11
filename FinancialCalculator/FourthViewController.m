@@ -25,6 +25,7 @@
     NSMutableArray *sharePrices;
     NSMutableArray *equityFractions;
     double numberOfRounds;
+    int totalSharesTemp;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -88,12 +89,16 @@
 
 - (IBAction)didSubmitVcInput:(id)sender
 {
-
-    
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    // Empty arrays in case there are leftovers from previous calculations.
+    [newShares removeAllObjects];
+    [totalShares removeAllObjects];
+    [sharePrices removeAllObjects];
+    [equityFractions removeAllObjects];
+    
     [self setupInputArrays];
     numberOfRounds = [self determineNumberOfRounds];
     
@@ -111,6 +116,8 @@
     }
     
     // Before segue, give VcOutputViewController output data.
+    ((VcOutputViewController *)segue.destinationViewController).numberOfRounds = numberOfRounds;
+    ((VcOutputViewController *)segue.destinationViewController).totalEquity = [_peExit.text doubleValue]*[_earningsExit.text doubleValue];
     ((VcOutputViewController *)segue.destinationViewController).changeInShares = newShares;
     ((VcOutputViewController *)segue.destinationViewController).totalShares = totalShares;
     ((VcOutputViewController *)segue.destinationViewController).sharePrices = sharePrices;
@@ -143,15 +150,20 @@
 
 - (void)calculateVcOutput
 {
+    totalSharesTemp = [_numberOfShares.text intValue];
+    
     for (int i=0; i<numberOfRounds; i++)
     {
         double equity = [_earningsExit.text doubleValue]*[_peExit.text doubleValue];
         double vcEquityPercent = [investments[i] doubleValue]*pow(1+[roi[i] doubleValue]/100, [years[i] doubleValue])/equity;
-        int newShrs = round(vcEquityPercent*[_numberOfShares.text doubleValue]/(1-vcEquityPercent));
-        int totShares = round([_numberOfShares.text doubleValue] + newShrs);
+        int newShrs = round(vcEquityPercent*totalSharesTemp/(1-vcEquityPercent));
+        
+        // Set total number of shares and update the running total.
+        int totShares = round(totalSharesTemp + newShrs);
+        totalSharesTemp = totShares;
         double sharePrc = equity/totShares;
         
-        NSString *equityFraction = [NSString stringWithFormat:@"%f / %f", vcEquityPercent*equity, equity];
+        NSString *equityFraction = [NSString stringWithFormat:@"$ %9.2f", vcEquityPercent*equity];
         
         [newShares addObject:[NSNumber numberWithInt:newShrs]];
         [totalShares addObject:[NSNumber numberWithInt:totShares]];

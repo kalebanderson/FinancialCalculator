@@ -50,34 +50,38 @@
     switch (_numberOfRounds)
     {
         case 5:
-            _fiveNewShares.text = _changeInShares[4];
-            _fiveTotalShares.text = _totalShares[4];
-            _fiveSharePrice.text = _sharePrices[4];
+            _fiveNewShares.text = [_changeInShares[4] stringValue];
+            _fiveTotalShares.text = [_totalShares[4] stringValue];
+            _fiveSharePrice.text = [NSString stringWithFormat:@"$ %9.2f",[_sharePrices[4] doubleValue]];
             _fiveEquityFraction.text = _equityFractions[4];
             
         case 4:
-            _fourNewShares.text = _changeInShares[3];
-            _fourTotalShares.text = _totalShares[3];
-            _fourSharePrice.text = _sharePrices[3];
+            _fourNewShares.text = [_changeInShares[3] stringValue];
+            _fourTotalShares.text = [_totalShares[3] stringValue];
+            _fourSharePrice.text = [NSString stringWithFormat:@"$ %9.2f",[_sharePrices[3] doubleValue]];
             _fourEquityFraction.text = _equityFractions[3];
             
         case 3:
-            _threeNewShares.text = _changeInShares[2];
-            _threeTotalShares.text = _totalShares[2];
-            _threeSharePrice.text = _sharePrices[2];
+            _threeNewShares.text = [_changeInShares[2] stringValue];
+            _threeTotalShares.text = [_totalShares[2] stringValue];
+            _threeSharePrice.text = [NSString stringWithFormat:@"$ %9.2f",[_sharePrices[2] doubleValue]];
             _threeEquityFraction.text = _equityFractions[2];
             
         case 2:
-            _twoNewShares.text = _changeInShares[1];
-            _twoTotalShares.text = _totalShares[1];
-            _twoSharePrice.text = _sharePrices[1];
+            _twoNewShares.text = [_changeInShares[1] stringValue];
+            _twoTotalShares.text = [_totalShares[1] stringValue];
+            _twoSharePrice.text = [NSString stringWithFormat:@"$ %9.2f",[_sharePrices[1] doubleValue]];
             _twoEquityFraction.text = _equityFractions[1];
         
         case 1:
-            _oneNewShares.text = _changeInShares[0];
-            _oneTotalShares.text = _totalShares[0];
-            _oneSharePrice.text = _sharePrices[0];
+            _oneNewShares.text = [_changeInShares[0] stringValue];
+            _oneTotalShares.text = [_totalShares[0] stringValue];
+            _oneSharePrice.text = [NSString stringWithFormat:@"$ %9.2f",[_sharePrices[0] doubleValue]];
             _oneEquityFraction.text = _equityFractions[0];
+            
+            _exitSharePrice.text = [NSString stringWithFormat:@"$ %9.2f", [_sharePrices[_numberOfRounds-1] doubleValue]];
+            _exitEquityFraction.text = _equityFractions[_numberOfRounds-1];
+            _exitTotalEquity.text = [NSString stringWithFormat:@"$ %9.2f", _totalEquity];
             break;
             
         default:
