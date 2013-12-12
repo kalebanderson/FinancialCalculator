@@ -1,0 +1,337 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8282322716BDDB94009955FC /* OVGraphYIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8282322616BDDB94009955FC /* OVGraphYIndicatorView.m */; };
+		829713CF15D2FDB100F1B0DF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 829713CE15D2FDB100F1B0DF /* UIKit.framework */; };
+		829713D115D2FDB100F1B0DF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 829713D015D2FDB100F1B0DF /* Foundation.framework */; };
+		829713D315D2FDB100F1B0DF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 829713D215D2FDB100F1B0DF /* CoreGraphics.framework */; };
+		829713D915D2FDB100F1B0DF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 829713D715D2FDB100F1B0DF /* InfoPlist.strings */; };
+		829713DB15D2FDB100F1B0DF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 829713DA15D2FDB100F1B0DF /* main.m */; };
+		829713DF15D2FDB100F1B0DF /* OVAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 829713DE15D2FDB100F1B0DF /* OVAppDelegate.m */; };
+		829713E215D2FDB100F1B0DF /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 829713E015D2FDB100F1B0DF /* MainStoryboard.storyboard */; };
+		829713EE15D2FEBD00F1B0DF /* OVGraphPlotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 829713ED15D2FEBD00F1B0DF /* OVGraphPlotView.m */; };
+		829713F215D2FFA800F1B0DF /* OVGraphDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 829713F015D2FFA800F1B0DF /* OVGraphDemoViewController.m */; };
+		82DA9693160EA987009CA462 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 82DA9692160EA987009CA462 /* Default-568h@2x.png */; };
+		82DD965915D731EF001FA35C /* OVPlotScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 82DD965715D731EF001FA35C /* OVPlotScrollView.m */; };
+		82DD965D15D73495001FA35C /* OVGraphViewPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 82DD965C15D73495001FA35C /* OVGraphViewPoint.m */; };
+		82FF1C7816BDE891004B6A72 /* OVGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 82FF1C7716BDE891004B6A72 /* OVGraphView.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		8282322516BDDB94009955FC /* OVGraphYIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OVGraphYIndicatorView.h; sourceTree = "<group>"; };
+		8282322616BDDB94009955FC /* OVGraphYIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OVGraphYIndicatorView.m; sourceTree = "<group>"; };
+		829713CA15D2FDB100F1B0DF /* OVGraphView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OVGraphView.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		829713CE15D2FDB100F1B0DF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		829713D015D2FDB100F1B0DF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		829713D215D2FDB100F1B0DF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		829713D615D2FDB100F1B0DF /* OVGraphView-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OVGraphView-Info.plist"; sourceTree = "<group>"; };
+		829713D815D2FDB100F1B0DF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		829713DA15D2FDB100F1B0DF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		829713DC15D2FDB100F1B0DF /* OVGraphView-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OVGraphView-Prefix.pch"; sourceTree = "<group>"; };
+		829713DD15D2FDB100F1B0DF /* OVAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OVAppDelegate.h; sourceTree = "<group>"; };
+		829713DE15D2FDB100F1B0DF /* OVAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OVAppDelegate.m; sourceTree = "<group>"; };
+		829713E115D2FDB100F1B0DF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		829713EC15D2FEBD00F1B0DF /* OVGraphPlotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OVGraphPlotView.h; path = OVGraphView/OVGraphPlotView.h; sourceTree = "<group>"; };
+		829713ED15D2FEBD00F1B0DF /* OVGraphPlotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OVGraphPlotView.m; path = OVGraphView/OVGraphPlotView.m; sourceTree = "<group>"; };
+		829713EF15D2FFA800F1B0DF /* OVGraphDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OVGraphDemoViewController.h; sourceTree = "<group>"; };
+		829713F015D2FFA800F1B0DF /* OVGraphDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OVGraphDemoViewController.m; sourceTree = "<group>"; };
+		82DA9692160EA987009CA462 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		82DD965615D731EF001FA35C /* OVPlotScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OVPlotScrollView.h; sourceTree = "<group>"; };
+		82DD965715D731EF001FA35C /* OVPlotScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OVPlotScrollView.m; sourceTree = "<group>"; };
+		82DD965B15D73495001FA35C /* OVGraphViewPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OVGraphViewPoint.h; sourceTree = "<group>"; };
+		82DD965C15D73495001FA35C /* OVGraphViewPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OVGraphViewPoint.m; sourceTree = "<group>"; };
+		82FF1C7616BDE891004B6A72 /* OVGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OVGraphView.h; sourceTree = "<group>"; };
+		82FF1C7716BDE891004B6A72 /* OVGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OVGraphView.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		829713C715D2FDB100F1B0DF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				829713CF15D2FDB100F1B0DF /* UIKit.framework in Frameworks */,
+				829713D115D2FDB100F1B0DF /* Foundation.framework in Frameworks */,
+				829713D315D2FDB100F1B0DF /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		829713BF15D2FDB100F1B0DF = {
+			isa = PBXGroup;
+			children = (
+				82DA9692160EA987009CA462 /* Default-568h@2x.png */,
+				829713EB15D2FE7D00F1B0DF /* OVGraphView */,
+				829713D415D2FDB100F1B0DF /* Demo */,
+				829713CD15D2FDB100F1B0DF /* Frameworks */,
+				829713CB15D2FDB100F1B0DF /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		829713CB15D2FDB100F1B0DF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				829713CA15D2FDB100F1B0DF /* OVGraphView.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		829713CD15D2FDB100F1B0DF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				829713CE15D2FDB100F1B0DF /* UIKit.framework */,
+				829713D015D2FDB100F1B0DF /* Foundation.framework */,
+				829713D215D2FDB100F1B0DF /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		829713D415D2FDB100F1B0DF /* Demo */ = {
+			isa = PBXGroup;
+			children = (
+				829713DD15D2FDB100F1B0DF /* OVAppDelegate.h */,
+				829713DE15D2FDB100F1B0DF /* OVAppDelegate.m */,
+				829713E015D2FDB100F1B0DF /* MainStoryboard.storyboard */,
+				829713EF15D2FFA800F1B0DF /* OVGraphDemoViewController.h */,
+				829713F015D2FFA800F1B0DF /* OVGraphDemoViewController.m */,
+				829713D515D2FDB100F1B0DF /* Supporting Files */,
+			);
+			name = Demo;
+			path = OVGraphView;
+			sourceTree = "<group>";
+		};
+		829713D515D2FDB100F1B0DF /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				829713D615D2FDB100F1B0DF /* OVGraphView-Info.plist */,
+				829713D715D2FDB100F1B0DF /* InfoPlist.strings */,
+				829713DA15D2FDB100F1B0DF /* main.m */,
+				829713DC15D2FDB100F1B0DF /* OVGraphView-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		829713EB15D2FE7D00F1B0DF /* OVGraphView */ = {
+			isa = PBXGroup;
+			children = (
+				829713EC15D2FEBD00F1B0DF /* OVGraphPlotView.h */,
+				829713ED15D2FEBD00F1B0DF /* OVGraphPlotView.m */,
+				8282322516BDDB94009955FC /* OVGraphYIndicatorView.h */,
+				8282322616BDDB94009955FC /* OVGraphYIndicatorView.m */,
+				82DD965615D731EF001FA35C /* OVPlotScrollView.h */,
+				82DD965715D731EF001FA35C /* OVPlotScrollView.m */,
+				82DD965B15D73495001FA35C /* OVGraphViewPoint.h */,
+				82DD965C15D73495001FA35C /* OVGraphViewPoint.m */,
+				82FF1C7616BDE891004B6A72 /* OVGraphView.h */,
+				82FF1C7716BDE891004B6A72 /* OVGraphView.m */,
+			);
+			name = OVGraphView;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		829713C915D2FDB100F1B0DF /* OVGraphView */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 829713E815D2FDB100F1B0DF /* Build configuration list for PBXNativeTarget "OVGraphView" */;
+			buildPhases = (
+				829713C615D2FDB100F1B0DF /* Sources */,
+				829713C715D2FDB100F1B0DF /* Frameworks */,
+				829713C815D2FDB100F1B0DF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OVGraphView;
+			productName = OVGraphView;
+			productReference = 829713CA15D2FDB100F1B0DF /* OVGraphView.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		829713C115D2FDB100F1B0DF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = OV;
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = "Owen Voorhees";
+			};
+			buildConfigurationList = 829713C415D2FDB100F1B0DF /* Build configuration list for PBXProject "OVGraphView" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 829713BF15D2FDB100F1B0DF;
+			productRefGroup = 829713CB15D2FDB100F1B0DF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				829713C915D2FDB100F1B0DF /* OVGraphView */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		829713C815D2FDB100F1B0DF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				829713D915D2FDB100F1B0DF /* InfoPlist.strings in Resources */,
+				829713E215D2FDB100F1B0DF /* MainStoryboard.storyboard in Resources */,
+				82DA9693160EA987009CA462 /* Default-568h@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		829713C615D2FDB100F1B0DF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				829713DB15D2FDB100F1B0DF /* main.m in Sources */,
+				829713DF15D2FDB100F1B0DF /* OVAppDelegate.m in Sources */,
+				829713EE15D2FEBD00F1B0DF /* OVGraphPlotView.m in Sources */,
+				829713F215D2FFA800F1B0DF /* OVGraphDemoViewController.m in Sources */,
+				82DD965915D731EF001FA35C /* OVPlotScrollView.m in Sources */,
+				82DD965D15D73495001FA35C /* OVGraphViewPoint.m in Sources */,
+				8282322716BDDB94009955FC /* OVGraphYIndicatorView.m in Sources */,
+				82FF1C7816BDE891004B6A72 /* OVGraphView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		829713D715D2FDB100F1B0DF /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				829713D815D2FDB100F1B0DF /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		829713E015D2FDB100F1B0DF /* MainStoryboard.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				829713E115D2FDB100F1B0DF /* en */,
+			);
+			name = MainStoryboard.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		829713E615D2FDB100F1B0DF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		829713E715D2FDB100F1B0DF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		829713E915D2FDB100F1B0DF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "OVGraphView/OVGraphView-Prefix.pch";
+				INFOPLIST_FILE = "OVGraphView/OVGraphView-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		829713EA15D2FDB100F1B0DF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "OVGraphView/OVGraphView-Prefix.pch";
+				INFOPLIST_FILE = "OVGraphView/OVGraphView-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		829713C415D2FDB100F1B0DF /* Build configuration list for PBXProject "OVGraphView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				829713E615D2FDB100F1B0DF /* Debug */,
+				829713E715D2FDB100F1B0DF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		829713E815D2FDB100F1B0DF /* Build configuration list for PBXNativeTarget "OVGraphView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				829713E915D2FDB100F1B0DF /* Debug */,
+				829713EA15D2FDB100F1B0DF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 829713C115D2FDB100F1B0DF /* Project object */;
+}

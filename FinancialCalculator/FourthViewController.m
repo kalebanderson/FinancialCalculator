@@ -122,6 +122,10 @@
     ((VcOutputViewController *)segue.destinationViewController).totalShares = totalShares;
     ((VcOutputViewController *)segue.destinationViewController).sharePrices = sharePrices;
     ((VcOutputViewController *)segue.destinationViewController).equityFractions = equityFractions;
+    
+    // Also give some data for the graph.
+    ((VcOutputViewController *)segue.destinationViewController).yearsToExit = years;
+    ((VcOutputViewController *)segue.destinationViewController).investments = investments;
 }
 
 - (void)setupInputArrays

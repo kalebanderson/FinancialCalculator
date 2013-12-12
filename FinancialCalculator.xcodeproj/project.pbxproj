@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EE062ADE18596F81005400F3 /* OVGraphPlotView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE062AD518596F81005400F3 /* OVGraphPlotView.m */; };
+		EE062ADF18596F81005400F3 /* OVGraphYIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE062AD718596F81005400F3 /* OVGraphYIndicatorView.m */; };
+		EE062AE018596F81005400F3 /* OVPlotScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE062AD918596F81005400F3 /* OVPlotScrollView.m */; };
+		EE062AE118596F81005400F3 /* OVGraphViewPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = EE062ADB18596F81005400F3 /* OVGraphViewPoint.m */; };
+		EE062AE218596F81005400F3 /* OVGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE062ADD18596F81005400F3 /* OVGraphView.m */; };
+		EE062AE518596FE6005400F3 /* GraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE062AE418596FE6005400F3 /* GraphViewController.m */; };
 		EE4CD7BF183DA991005340D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE4CD7BE183DA991005340D7 /* Foundation.framework */; };
 		EE4CD7C1183DA991005340D7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE4CD7C0183DA991005340D7 /* CoreGraphics.framework */; };
 		EE4CD7C3183DA991005340D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE4CD7C2183DA991005340D7 /* UIKit.framework */; };
@@ -39,6 +45,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EE062AD418596F81005400F3 /* OVGraphPlotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OVGraphPlotView.h; sourceTree = "<group>"; };
+		EE062AD518596F81005400F3 /* OVGraphPlotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OVGraphPlotView.m; sourceTree = "<group>"; };
+		EE062AD618596F81005400F3 /* OVGraphYIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OVGraphYIndicatorView.h; sourceTree = "<group>"; };
+		EE062AD718596F81005400F3 /* OVGraphYIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OVGraphYIndicatorView.m; sourceTree = "<group>"; };
+		EE062AD818596F81005400F3 /* OVPlotScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OVPlotScrollView.h; sourceTree = "<group>"; };
+		EE062AD918596F81005400F3 /* OVPlotScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OVPlotScrollView.m; sourceTree = "<group>"; };
+		EE062ADA18596F81005400F3 /* OVGraphViewPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OVGraphViewPoint.h; sourceTree = "<group>"; };
+		EE062ADB18596F81005400F3 /* OVGraphViewPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OVGraphViewPoint.m; sourceTree = "<group>"; };
+		EE062ADC18596F81005400F3 /* OVGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OVGraphView.h; sourceTree = "<group>"; };
+		EE062ADD18596F81005400F3 /* OVGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OVGraphView.m; sourceTree = "<group>"; };
+		EE062AE318596FE6005400F3 /* GraphViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphViewController.h; sourceTree = "<group>"; };
+		EE062AE418596FE6005400F3 /* GraphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphViewController.m; sourceTree = "<group>"; };
 		EE4CD7BB183DA991005340D7 /* FinancialCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FinancialCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE4CD7BE183DA991005340D7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EE4CD7C0183DA991005340D7 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -93,9 +111,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EE062AC118596EA7005400F3 /* OVGraph */ = {
+			isa = PBXGroup;
+			children = (
+				EE062AD418596F81005400F3 /* OVGraphPlotView.h */,
+				EE062AD518596F81005400F3 /* OVGraphPlotView.m */,
+				EE062AD618596F81005400F3 /* OVGraphYIndicatorView.h */,
+				EE062AD718596F81005400F3 /* OVGraphYIndicatorView.m */,
+				EE062AD818596F81005400F3 /* OVPlotScrollView.h */,
+				EE062AD918596F81005400F3 /* OVPlotScrollView.m */,
+				EE062ADA18596F81005400F3 /* OVGraphViewPoint.h */,
+				EE062ADB18596F81005400F3 /* OVGraphViewPoint.m */,
+				EE062ADC18596F81005400F3 /* OVGraphView.h */,
+				EE062ADD18596F81005400F3 /* OVGraphView.m */,
+			);
+			name = OVGraph;
+			sourceTree = "<group>";
+		};
 		EE4CD7B2183DA991005340D7 = {
 			isa = PBXGroup;
 			children = (
+				EE062AC118596EA7005400F3 /* OVGraph */,
 				EE4CD7C4183DA991005340D7 /* FinancialCalculator */,
 				EE4CD7E9183DA991005340D7 /* FinancialCalculatorTests */,
 				EE4CD7BD183DA991005340D7 /* Frameworks */,
@@ -142,6 +178,8 @@
 				EEEF57A01856B91C000AEE19 /* FourthViewController.m */,
 				EEEF57A51856C7EF000AEE19 /* VcOutputViewController.h */,
 				EEEF57A61856C7EF000AEE19 /* VcOutputViewController.m */,
+				EE062AE318596FE6005400F3 /* GraphViewController.h */,
+				EE062AE418596FE6005400F3 /* GraphViewController.m */,
 			);
 			path = FinancialCalculator;
 			sourceTree = "<group>";
@@ -274,12 +312,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				EEEF57A11856B91C000AEE19 /* FourthViewController.m in Sources */,
+				EE062AE018596F81005400F3 /* OVPlotScrollView.m in Sources */,
+				EE062AE218596F81005400F3 /* OVGraphView.m in Sources */,
 				EEEF57A71856C7EF000AEE19 /* VcOutputViewController.m in Sources */,
 				EE4CD7DB183DA991005340D7 /* SecondViewController.m in Sources */,
+				EE062ADF18596F81005400F3 /* OVGraphYIndicatorView.m in Sources */,
 				EEC80857183EF5CC0059EBF0 /* ThirdViewController.m in Sources */,
 				EE4CD7CF183DA991005340D7 /* AppDelegate.m in Sources */,
+				EE062ADE18596F81005400F3 /* OVGraphPlotView.m in Sources */,
 				EE4CD7D8183DA991005340D7 /* FirstViewController.m in Sources */,
+				EE062AE518596FE6005400F3 /* GraphViewController.m in Sources */,
 				EE4CD7CB183DA991005340D7 /* main.m in Sources */,
+				EE062AE118596F81005400F3 /* OVGraphViewPoint.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

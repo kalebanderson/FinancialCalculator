@@ -7,6 +7,7 @@
 //
 
 #import "VcOutputViewController.h"
+#import "GraphViewController.h"
 
 @interface VcOutputViewController ()
 
@@ -37,6 +38,17 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    [self calculateGraphData];
+    // Before segue, calculate and give GraphViewController data.
+    
+    ((GraphViewController *)segue.destinationViewController).numberOfRounds = _numberOfRounds;
+    ((GraphViewController *)segue.destinationViewController).yearsToExit = _yearsToExit;
+    ((GraphViewController *)segue.destinationViewController).investments = _investments;
+    ((GraphViewController *)segue.destinationViewController).fvOfVcInvestments = [[_equityFractions lastObject] doubleValue];
 }
 
 - (IBAction)didGoBack:(id)sender
@@ -88,6 +100,11 @@
             // This was reached in error. Rounds of investing must be between 1 and 5.
             break;
     }
+}
+
+- (void)calculateGraphData
+{
+    
 }
 
 @end

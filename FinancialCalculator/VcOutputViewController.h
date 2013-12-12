@@ -50,4 +50,8 @@
 @property (nonatomic) NSMutableArray *sharePrices;
 @property (nonatomic) NSMutableArray *equityFractions;
 
+// Data that is passed through for graph.
+@property (nonatomic) NSArray *yearsToExit;
+@property (nonatomic) NSArray *investments;
+
 @end
