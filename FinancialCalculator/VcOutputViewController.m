@@ -48,7 +48,7 @@
     ((GraphViewController *)segue.destinationViewController).numberOfRounds = _numberOfRounds;
     ((GraphViewController *)segue.destinationViewController).yearsToExit = _yearsToExit;
     ((GraphViewController *)segue.destinationViewController).investments = _investments;
-    ((GraphViewController *)segue.destinationViewController).fvOfVcInvestments = [[_equityFractions lastObject] doubleValue];
+    ((GraphViewController *)segue.destinationViewController).fvOfVcInvestments = _totalValVcEquity;
 }
 
 - (IBAction)didGoBack:(id)sender
@@ -92,7 +92,7 @@
             _oneEquityFraction.text = _equityFractions[0];
             
             _exitSharePrice.text = [NSString stringWithFormat:@"$ %9.2f", [_sharePrices[_numberOfRounds-1] doubleValue]];
-            _exitEquityFraction.text = _equityFractions[_numberOfRounds-1];
+            _exitEquityFraction.text = [NSString stringWithFormat:@"$ %9.2f", _totalValVcEquity];
             _exitTotalEquity.text = [NSString stringWithFormat:@"$ %9.2f", _totalEquity];
             break;
             

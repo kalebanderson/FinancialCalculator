@@ -26,6 +26,7 @@
     NSMutableArray *equityFractions;
     double numberOfRounds;
     int totalSharesTemp;
+    double totalVcEquity;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -126,6 +127,7 @@
     // Also give some data for the graph.
     ((VcOutputViewController *)segue.destinationViewController).yearsToExit = years;
     ((VcOutputViewController *)segue.destinationViewController).investments = investments;
+    ((VcOutputViewController *)segue.destinationViewController).totalValVcEquity = totalVcEquity;
 }
 
 - (void)setupInputArrays
@@ -168,6 +170,7 @@
         double sharePrc = equity/totShares;
         
         NSString *equityFraction = [NSString stringWithFormat:@"$ %9.2f", vcEquityPercent*equity];
+        totalVcEquity += vcEquityPercent*equity;
         
         [newShares addObject:[NSNumber numberWithInt:newShrs]];
         [totalShares addObject:[NSNumber numberWithInt:totShares]];

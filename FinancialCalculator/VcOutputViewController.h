@@ -53,5 +53,6 @@
 // Data that is passed through for graph.
 @property (nonatomic) NSArray *yearsToExit;
 @property (nonatomic) NSArray *investments;
+@property (nonatomic) double totalValVcEquity;
 
 @end
