@@ -24,6 +24,7 @@
     NSMutableArray *totalShares;
     NSMutableArray *sharePrices;
     NSMutableArray *equityFractions;
+    NSMutableArray *ownershipPercentages;
     double numberOfRounds;
     int totalSharesTemp;
     double totalVcEquity;
@@ -47,6 +48,7 @@
     totalShares = [[NSMutableArray alloc] init];
     sharePrices = [[NSMutableArray alloc] init];
     equityFractions = [[NSMutableArray alloc] init];
+    ownershipPercentages = [[NSMutableArray alloc] init];
     
     UIEdgeInsets inset = UIEdgeInsetsMake(18, 0, 49, 0);
     self.tableView.contentInset = inset;
@@ -154,16 +156,46 @@
     return temp;
 }
 
+- (void)calculateOwnershipPercentagesWithEquity:(double)equity
+{
+    NSMutableArray *finalEquityPercentages = [[NSMutableArray alloc] init];
+    
+    for (int i=0; i<numberOfRounds; i++)
+    {
+        double finalEquityPercent = [investments[i] doubleValue]*pow(1+[roi[i] doubleValue]/100, [years[i] doubleValue])/equity;
+        [finalEquityPercentages addObject:[NSNumber numberWithDouble:finalEquityPercent]];
+    }
+    
+    while (finalEquityPercentages.count > 0)
+    {
+        double tempEquityPercent = [[finalEquityPercentages firstObject] doubleValue];
+        [finalEquityPercentages removeObjectAtIndex:0];
+        double tempRetentionPercent = 1;        // 1 = 100%
+        
+        for (int j=0; j < finalEquityPercentages.count; j++)
+        {
+            tempRetentionPercent -= [finalEquityPercentages[j] doubleValue];
+        }
+        
+        tempEquityPercent /= tempRetentionPercent;
+        
+        [ownershipPercentages addObject:[NSNumber numberWithDouble:tempEquityPercent]];
+    }
+
+}
+
 - (void)calculateVcOutput
 {
     totalSharesTemp = [_numberOfShares.text intValue];
     totalVcEquity = 0;
     
+    double equity = [_earningsExit.text doubleValue]*[_peExit.text doubleValue];
+    [self calculateOwnershipPercentagesWithEquity:equity];
+    
     for (int i=0; i<numberOfRounds; i++)
     {
-        double equity = [_earningsExit.text doubleValue]*[_peExit.text doubleValue];
         double vcEquityPercent = [investments[i] doubleValue]*pow(1+[roi[i] doubleValue]/100, [years[i] doubleValue])/equity;
-        int newShrs = round(vcEquityPercent*totalSharesTemp/(1-vcEquityPercent));
+        int newShrs = round([ownershipPercentages[i] doubleValue]*totalSharesTemp/(1-[ownershipPercentages[i] doubleValue]));
         
         // Set total number of shares and update the running total.
         int totShares = round(totalSharesTemp + newShrs);
