@@ -61,9 +61,18 @@
 
 - (void)calculateGraphPoints
 {
+    int powerOfTenToDivideBy = 0;
+    double tempVcEquity = _fvOfVcInvestments;
+    while (tempVcEquity > 100)
+    {
+        tempVcEquity /= 10;
+        powerOfTenToDivideBy++;
+    }
+    int numberToDivideBy = pow(10, powerOfTenToDivideBy);
+    
     // Add starting investment.
     OVGraphViewPoint *point = [[OVGraphViewPoint alloc] initWithXLabel:@"Now"
-                                YValue:[NSNumber numberWithDouble:round([_investments[0] doubleValue])]];
+                                YValue:[NSNumber numberWithDouble:[_investments[0] doubleValue]/numberToDivideBy]];
     [graphPoints addObject:point];
     
     int currentIndex = 1;
@@ -74,7 +83,7 @@
             if (i == ([_yearsToExit[0] intValue] - [_yearsToExit[currentIndex] doubleValue]))
             {
                 OVGraphViewPoint *point = [[OVGraphViewPoint alloc] initWithXLabel:[NSString stringWithFormat:@"%d", i]
-                                           YValue:[NSNumber numberWithDouble:round([_investments[currentIndex] doubleValue])]];
+                                           YValue:[NSNumber numberWithDouble:[_investments[currentIndex] doubleValue]/numberToDivideBy]];
                 [graphPoints addObject:point];
                 currentIndex++;
             }
@@ -88,7 +97,7 @@
     
     // Add payout (equity) of investors on exit.
     OVGraphViewPoint *endPoint = [[OVGraphViewPoint alloc] initWithXLabel:@"Exit"
-                                   YValue:[NSNumber numberWithDouble:round(_fvOfVcInvestments)]];
+                                   YValue:[NSNumber numberWithDouble:_fvOfVcInvestments/numberToDivideBy]];
     [graphPoints addObject:endPoint];
 }
 

@@ -36,7 +36,7 @@
     }
     //calculate colors
     CGFloat *oldComponents = (CGFloat *)CGColorGetComponents([opaquecolor CGColor]);
-	int numComponents = CGColorGetNumberOfComponents([opaquecolor CGColor]);
+	int numComponents = (int)CGColorGetNumberOfComponents([opaquecolor CGColor]);
 	CGFloat newComponents[4];
     
 	switch (numComponents)
@@ -69,7 +69,7 @@
 	CGColorRelease(newColor);
     
     CGFloat *theoldComponents = (CGFloat *)CGColorGetComponents([opaquecolor CGColor]);
-	int thenumComponents = CGColorGetNumberOfComponents([opaquecolor CGColor]);
+	int thenumComponents = (int)CGColorGetNumberOfComponents([opaquecolor CGColor]);
 	CGFloat thenewComponents[4];
     
 	switch (thenumComponents)
@@ -157,7 +157,11 @@
             CGContextStrokePath(context);
             CGContextRestoreGState(context);
             
-            [point.xlabel drawAtPoint:CGPointMake(xpoint, self.frame.size.height-20) withFont:[UIFont fontWithName:@"Futura" size:12]];
+            UIFont *font = [UIFont fontWithName:@"Futura" size:12.0];
+            NSDictionary *attributes = @{NSFontAttributeName: font};
+            [point.xlabel drawAtPoint:CGPointMake(xpoint, self.frame.size.height-20)
+                          withAttributes:attributes];
+//            [point.xlabel drawAtPoint:CGPointMake(xpoint, self.frame.size.height-20) withFont:[UIFont fontWithName:@"Futura" size:12]];
             int yvalueoffset;
             yvalueoffset=0-30;
             

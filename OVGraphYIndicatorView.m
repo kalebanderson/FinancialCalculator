@@ -17,7 +17,7 @@
         [self setOpaque:NO];
         _yValueLabel=[[UILabel alloc]initWithFrame:CGRectMake(0, 1, 40, 18)];
         _yValueLabel.font=[UIFont fontWithName:@"Futura" size:12];
-        _yValueLabel.textAlignment=UITextAlignmentCenter;
+        _yValueLabel.textAlignment=NSTextAlignmentCenter;
         _yValueLabel.backgroundColor=[UIColor clearColor];
         [self addSubview:_yValueLabel];
     }
